@@ -16,18 +16,29 @@ $sql = "USE playermansystem";
 if ($conn->query($sql) !== TRUE) {
     die("Error Using database: " . $conn->error);
 }
+echo "<br>";
 
+/* We shall insert user msg into database next. The code within the comment is safer way.*/
+
+/*
 if( $stmt = $conn->prepare("INSERT INTO users(Alias,email,password) VALUES (?,?,?)") ){
 
 	$inAlias = test_input($_POST['signup-username']);
 	$inEmail = test_input($_POST["signup-email"]);
 	$inPass = md5( test_input($_POST["signup-password"]) );
-	$stmt->bind_param("sss",$inAlias,$inEmail,$inPass);
+	$stmt->bind_param("sss",$inAlias,$inEmail, $inPass);
 
-	echo "<br>";
-	if( $stmt->execute() ) $info = "sign up seuccessfully!";
+	if( $stmt->execute() ) $info = "sign up successfully!";
 	else $info = $conn->error;
 }
+*/
+
+$sql = "INSERT INTO users(Alias, email, password) VALUES ('".
+    $_POST["signup-username"]."', '".$_POST["signup-email"]."', '".md5($_POST["signup-password"])."');";
+
+if( $conn->query($sql) == TRUE ) $info = "sign up successfully";
+else $info = $conn->error;
+
 $conn->close();
 ?>
 <html>

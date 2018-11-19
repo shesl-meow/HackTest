@@ -15,13 +15,17 @@ else{
 	$info = $conn->query("select Alias,email,password from users");
 	$inputkey = test_input($_POST['signin-key']);
 	$password = md5( test_input($_POST['signin-password']) );
-	
+
 	$exResult[0] = "User doesn't exist";
 	if( $info->num_rows > 0 )
 		while( $row = $info->fetch_assoc() )
 			if($row['Alias'] === $inputkey || $row['email'] === $inputkey){
 				$exResult[0] = false;
-				($row['password'] === $password) ? ($exResult[2] = true && $exResult[0] = $row['Alias']) : ($exResult[1] = "Incorrect password") ;
+				if($row['password'] === $password){
+					$exResult[2] = true && $exResult[0] = $row['Alias'];
+				}else{
+                    ($exResult[1] = "Incorrect password") ;
+				}
 				break;
 			}
 }

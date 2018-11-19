@@ -219,7 +219,7 @@
       <?php } ?>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-md-6"> <img src="img/about.jpg" class="img-responsive" alt=""> </div>
+      <div class="col-xs-12 col-md-6" name="query-image"> <img src="img/about.jpg" class="img-responsive" alt=""> </div>
       <div class="col-xs-12 col-md-6">
         <?php if($_COOKIE["Authority"] == "newer"){ ?>
         <div class="about-text">
@@ -252,7 +252,9 @@
           <br><br>
           <h4>Query Result</h4>
             <div class="query-box">
-              <p id='query-result'>Your Query result will be print here.</p>
+              <p id='query-result'>
+                <?= $_COOKIE["queryResult"] ?>
+              </p>
             </div>
         </div>
       <?php }?>

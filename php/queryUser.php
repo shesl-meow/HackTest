@@ -25,7 +25,7 @@
 				$Info = $Info . "<br>";
 			}
 			$queryResult = $Info;
-			}
+      }
 		}elseif( $res2 = $conn->query("SELECT HumanID,email,Alias,GameID,gender FROM users WHERE email='".$inputkey."';") ){
 			while( $row = $res2->fetch_assoc() ){
 				foreach ($row as $key => $value) {
@@ -39,8 +39,8 @@
 		}else $queryResult = "user ".$inputkey." does not exist";
 	
 	$conn->close();
-	echo json_encode($queryResult);
-//	header("location:../index.php");
+	echo $queryResult;
+
 	function test_input($data){
 		$data = trim($data);
 		$data = stripslashes($data);

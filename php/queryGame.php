@@ -52,7 +52,7 @@
 		$queryResult = $Info;
 	}
 	$conn->close();
-	echo json_encode($queryResult);
+	echo $queryResult;
 
 	function test_input($data){
 		$data = trim($data);
