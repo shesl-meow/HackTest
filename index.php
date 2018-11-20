@@ -185,7 +185,6 @@
     <div class="col-md-8 col-md-offset-2 section-title">
       <h2>DataBase Function</h2>
       <p>html-css-javascript-php construction, use PHP connecet mysql database.</p>
-      <p>Student Number: 1613574; Student Name: 佘崧林</p>
     </div>
     <div class="row">
       <div class="col-xs-6 col-md-3"> <i class="fa fa-desktop"></i>
