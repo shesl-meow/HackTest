@@ -446,7 +446,7 @@
           </ul>
         </div>
         <span class='btn-block'>Register people:</span>
-        <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 2em">
           <?php
           $conn = new mysqli("localhost", "root", "root");
           $conn->query("USE playermansystem;");
@@ -459,6 +459,15 @@
     </div>
   </div>
 </div>
+<?php if($_COOKIE["Authority"] == "login"){?>
+  <div class="col-md-6 col-md-offset-3">
+    <form action="./php/upload.php" method="post" enctype="multipart/form-data" class="form-control" style="width: auto">
+      <label for="file-upload">GAME:</label>
+      <input type="file" name="file-upload" id="file-upload">
+      <input type="submit" name="upload-file" value="上传">
+    </form>
+  </div>
+<?php } ?>
 <div id="footer">
   <div class="container text-center">
     <div class="fnav">

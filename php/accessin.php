@@ -8,7 +8,7 @@
     else {
       $info = $conn->query("select Alias,email from users");
       if ($info->num_rows > 0) while ($row = $info->fetch_assoc())
-        if ($row['Alias'] === $_POST['signin-key'] || $row['email'] === $_POST['signin-key']s) {
+        if ($row['Alias'] === $_POST['signin-key'] || $row['email'] === $_POST['signin-key']) {
           $queryResult = "Alias: " . $row["Alias"] . "<br>email: " . $row["email"] . "<br>";
           break;
         }
