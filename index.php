@@ -464,7 +464,6 @@
     <form action="./php/upload.php" method="post" enctype="multipart/form-data" class="form-control" style="width: auto">
       <label for="file-upload">GAME:</label>
       <input type="file" name="file-upload" id="file-upload">
-      <input type="submit" name="upload-file" value="上传">
     </form>
   </div>
 <?php } ?>
